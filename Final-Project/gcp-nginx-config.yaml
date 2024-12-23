@@ -1,0 +1,16 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: nginx-config
+  namespace: default
+data:
+  nginx.conf: |
+    events { }
+    http {
+      server {
+        listen 80;
+        location / {
+          proxy_pass http://TOMCAT-ELB-d58fe98e92e1e5a9.elb.ap-northeast-2.amazonaws.com:8080; #change the tomcat nlb dns from the value of terraform output
+        }
+      }
+    }
